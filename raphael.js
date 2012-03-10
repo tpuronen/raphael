@@ -2184,8 +2184,8 @@
         return out;
     };
     
-    paperproto.image = function (src, x, y, w, h) {
-        var out = R._engine.image(this, src || "about:blank", x || 0, y || 0, w || 0, h || 0);
+    paperproto.image = function (src, x, y, w, h, preserveAspectRatio) {
+        var out = R._engine.image(this, src || "about:blank", x || 0, y || 0, w || 0, h || 0, preserveAspectRatio || "none");
         this.__set__ && this.__set__.push(out);
         return out;
     };
@@ -4356,9 +4356,9 @@ window.Raphael.svg && function (R) {
         $(el, res.attrs);
         return res;
     };
-    R._engine.image = function (svg, src, x, y, w, h) {
+    R._engine.image = function (svg, src, x, y, w, h, preserveAspectRatio) {
         var el = $("image");
-        $(el, {x: x, y: y, width: w, height: h, preserveAspectRatio: "none"});
+        $(el, {x: x, y: y, width: w, height: h, preserveAspectRatio: preserveAspectRatio});
         el.setAttributeNS(xlink, "href", src);
         svg.canvas && svg.canvas.appendChild(el);
         var res = new Element(el, svg);
